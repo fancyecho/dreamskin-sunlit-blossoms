@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "preset-tsuyoshi-kozu-sunlit-blossoms",
+  "name": "Tsuyoshi Kozu · Sunlit White Blossoms",
+  "image": "background.jpg",
+  "appearance": "light",
+  "art": {
+    "focusX": 0.5,
+    "focusY": 0.5,
+    "safeArea": "none",
+    "taskMode": "ambient"
+  },
+  "colors": {
+    "background": "#f4efe8",
+    "panel": "#fbf8f2",
+    "panelAlt": "#e8e1d8",
+    "accent": "#8f5310",
+    "accentAlt": "#b47a2f",
+    "secondary": "#314540",
+    "highlight": "#d5b476",
+    "text": "#252925",
+    "muted": "#686e69",
+    "line": "#c9c1b5"
+  }
+}

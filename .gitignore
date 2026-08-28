@@ -1,0 +1,13 @@
+.DS_Store
+._*
+node_modules/
+
+# Local unpacked distribution and ad-hoc debugging helpers.
+Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v2-macOS/
+apply-live-*.mjs
+inspect-*.mjs
+scan-*.mjs
+verify-*.mjs
+
+# macOS application bundles are distributed only inside the verified ZIP.
+*.app/

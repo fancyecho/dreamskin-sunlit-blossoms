@@ -1,0 +1,74 @@
+[data-ds-part="root"] {
+  color: var(--ds-theme-color-text);
+  line-height: 1.55;
+}
+
+[data-ds-part="sidebar"] {
+  border-right-color: var(--ds-theme-color-line);
+  border-right-width: 1px;
+  border-right-style: solid;
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(12px) saturate(1.08) brightness(1.04);
+  transition-property: border-color, box-shadow, backdrop-filter;
+  transition-duration: 180ms;
+}
+
+[data-ds-part="header"] {
+  background-color: transparent;
+  border-bottom-color: var(--ds-theme-color-line);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  backdrop-filter: blur(10px) saturate(1.06) brightness(1.03);
+}
+
+[data-ds-part="home-hero"] {
+  color: var(--ds-theme-color-text);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.2px;
+}
+
+[data-ds-part="project-list"] {
+  border-color: var(--ds-theme-color-line);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--ds-theme-surface-radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(14px) saturate(1.08) brightness(1.04);
+  transition-property: border-color, box-shadow;
+  transition-duration: 180ms;
+}
+
+[data-ds-part="message"] {
+  color: var(--ds-theme-color-text);
+  border-radius: var(--ds-theme-surface-radius);
+  line-height: 1.62;
+}
+
+[data-ds-part="composer"] {
+  background-color: var(--ds-theme-color-panel);
+  border-color: var(--ds-theme-color-line);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px) saturate(1.1) brightness(1.04);
+  transition-property: border-color, box-shadow;
+  transition-duration: 180ms;
+}
+
+[data-ds-part="composer"]:focus-visible {
+  border-color: var(--ds-theme-color-accent);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.14), 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+[data-ds-part="dialog"] {
+  background-color: var(--ds-theme-color-panel);
+  color: var(--ds-theme-color-text);
+  border-color: var(--ds-theme-color-line);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 18px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(20px) saturate(1.08) brightness(1.03);
+}
