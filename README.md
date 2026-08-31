@@ -6,13 +6,13 @@
 
 ## 下载
 
-- 完整 macOS 精修包：[`dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v2-macOS.zip`](dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v2-macOS.zip)
+- 最新完整 macOS 精修包：[`dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v3-macOS.zip`](dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v3-macOS.zip)
 - 仅主题导入包：[`dist/Tsuyoshi-Kozu-Sunlit-Blossoms.theme.zip`](dist/Tsuyoshi-Kozu-Sunlit-Blossoms.theme.zip)
 
 完整包 SHA-256：
 
 ```text
-5726749c70a98012b126d088254f15325c8653dad02edddfeea165e64741415d
+00d1404efe3f6301aadd3f6531c9fd0c91d0931f11c90f636fe7517a4f7ce3de
 ```
 
 ## 精修内容
@@ -23,6 +23,7 @@
 - 宽屏 AI 回复仅在右侧加入羽化暖白阅读层，左侧透明，不改变文字与布局。
 - 代码块与标题栏改为暖米色表面。
 - “添加到对话”纯文本结果卡改为暖米灰半透明表面与琥珀细边框。
+- 顶栏“聊天/工作”切换器使用暖米灰轨道与浅蜂蜜金选中态。
 - 移除 ChatGPT/Codex 模式下拉框右侧的额外小点。
 
 ## 安装

@@ -294,6 +294,54 @@ html[data-dream-skin="active"] aside.app-shell-left-panel [aria-current="page"] 
   color: var(--ds-accent) !important;
 }
 
+/* The native home Chat/Work switch paints a cool gray track and nearly white
+   indicator. Reuse its stable header/group/pressed-state structure and tint
+   only those paint layers with the selected theme palette. Geometry, focus,
+   pointer handling, labels, and the moving native indicator stay untouched. */
+html[data-dream-skin="active"] [data-ds-part="header"]
+  [role="group"]:has(> span[aria-hidden="true"] + span[aria-hidden="true"] + button[aria-pressed] + button[aria-pressed])
+  > span[aria-hidden="true"]:first-child {
+  background:
+    linear-gradient(90deg,
+      rgb(var(--ds-panel-2-rgb) / .76),
+      rgb(var(--ds-highlight-rgb) / .30)) !important;
+  box-shadow: inset 0 0 0 1px rgb(var(--ds-accent-rgb) / .16) !important;
+  backdrop-filter: blur(10px) saturate(108%) !important;
+}
+
+html[data-dream-skin="active"] [data-ds-part="header"]
+  [role="group"]:has(> span[aria-hidden="true"] + span[aria-hidden="true"] + button[aria-pressed] + button[aria-pressed])
+  > span[aria-hidden="true"]:nth-child(2) {
+  border: 1px solid rgb(var(--ds-accent-rgb) / .30) !important;
+  background:
+    linear-gradient(135deg,
+      rgb(var(--ds-highlight-rgb) / .62),
+      rgb(var(--ds-accent-rgb) / .24)) !important;
+  box-shadow:
+    0 3px 10px rgb(var(--ds-bg-rgb) / .14),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .54) !important;
+  backdrop-filter: blur(12px) saturate(112%) !important;
+}
+
+html[data-dream-skin="active"] [data-ds-part="header"]
+  [role="group"]:has(> span[aria-hidden="true"] + span[aria-hidden="true"] + button[aria-pressed] + button[aria-pressed])
+  > button[aria-pressed="true"] {
+  color: var(--ds-text) !important;
+  text-shadow: 0 1px rgb(var(--ds-panel-rgb) / .24) !important;
+}
+
+html[data-dream-skin="active"] [data-ds-part="header"]
+  [role="group"]:has(> span[aria-hidden="true"] + span[aria-hidden="true"] + button[aria-pressed] + button[aria-pressed])
+  > button[aria-pressed="false"] {
+  color: rgb(var(--ds-text-rgb) / .72) !important;
+}
+
+html[data-dream-skin="active"] [data-ds-part="header"]
+  [role="group"]:has(> span[aria-hidden="true"] + span[aria-hidden="true"] + button[aria-pressed] + button[aria-pressed])
+  > button[aria-pressed="false"]:hover {
+  color: var(--ds-accent) !important;
+}
+
 html[data-dream-skin="active"] main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"]) {
   position: relative !important;
   isolation: isolate;
