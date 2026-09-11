@@ -473,6 +473,19 @@ html[data-dream-skin="active"]:is([data-dream-task-mode="ambient"], [data-dream-
   box-shadow: none !important;
 }
 
+/* Roseblade's artwork is already pale and locally softened where long-form
+   copy sits. Preserve its paper texture with a much clearer task surface than
+   the generic immersive veil; the sidebar and controls keep their own glass. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]:is([data-dream-task-mode="ambient"], [data-dream-art-task-mode="ambient"], [data-dream-task-mode="banner"], [data-dream-art-task-mode="banner"])[data-dream-art-wide="true"]:has(main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"])):not(:has(main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"]) [role="main"]))
+  main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"]):not(:has([role="main"])),
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]:is([data-dream-task-mode="full"], [data-dream-art-task-mode="full"])[data-dream-art-wide="true"]:has(main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"])):not(:has(main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"]) [role="main"]))
+  main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"]):not(:has([role="main"])) {
+  background: linear-gradient(90deg,
+    rgb(var(--ds-panel-rgb) / .16),
+    rgb(var(--ds-panel-rgb) / .07) 58%,
+    rgb(var(--ds-panel-rgb) / .025)) !important;
+}
+
 html[data-dream-skin="active"]:is([data-dream-task-mode="ambient"], [data-dream-art-task-mode="ambient"], [data-dream-task-mode="banner"], [data-dream-art-task-mode="banner"])[data-dream-art-wide="true"]
   main:is(.main-surface, [data-app-shell-main-surface], [class*="_MainContentSurface_"]):not(:has([role="main"]))::before {
   content: none;
@@ -1471,6 +1484,335 @@ html[data-dream-skin="active"] :is(.composer-surface-chrome, [class*="_ComposerL
   opacity: 1 !important;
 }
 
+/* Roseblade keeps the primary composer action optically stable across native
+   send/stop state swaps. Only its paint changes on Hover and active; native
+   geometry and glyph alignment remain untouched. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-primary-action"] {
+  border-color: rgb(var(--ds-text-rgb) / .34) !important;
+  background: var(--ds-accent) !important;
+  color: var(--ds-on-accent) !important;
+  box-shadow:
+    0 5px 16px rgb(var(--ds-bg-rgb) / .24),
+    inset 0 1px rgb(var(--ds-text-rgb) / .42) !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-primary-action"] svg {
+  display: block !important;
+  flex: none !important;
+  margin: 0 !important;
+  color: currentColor !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* The composer's native secondary-button Hover selector has deliberately high
+   specificity. Repeat the semantic composer boundary here and use a restrained
+   rose lift instead of a hard palette inversion. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer"]
+  button[data-ds-part="composer-primary-action"]:is([class~="bg-composer-primary"], [class~="bg-primary-solid"]):hover {
+  border-color: rgb(var(--ds-accent-rgb) / .46) !important;
+  background: color-mix(in srgb, var(--ds-accent) 88%, var(--ds-panel) 12%) !important;
+  color: var(--ds-on-accent) !important;
+  box-shadow:
+    0 7px 19px rgb(var(--ds-bg-rgb) / .25),
+    0 2px 8px rgb(var(--ds-accent-rgb) / .14),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .42) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer"]
+  button[data-ds-part="composer-primary-action"]:is([class~="bg-composer-primary"], [class~="bg-primary-solid"]):active {
+  border-color: rgb(var(--ds-accent-rgb) / .40) !important;
+  background: color-mix(in srgb, var(--ds-accent) 95%, var(--ds-bg) 5%) !important;
+  color: var(--ds-on-accent) !important;
+  box-shadow:
+    0 4px 12px rgb(var(--ds-bg-rgb) / .22),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .32) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* The floating jump-to-latest control previously stayed as a cold white
+   circle. Give it a compact rose-glass surface while preserving the native
+   placement, size, down-arrow rotation, visibility logic, and hit target. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="scroll-to-bottom"] {
+  background:
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .96),
+      rgb(var(--ds-panel-2-rgb) / .68)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .18) !important;
+  color: var(--ds-accent) !important;
+  box-shadow:
+    0 7px 20px rgb(var(--ds-bg-rgb) / .17),
+    0 2px 7px rgb(var(--ds-accent-rgb) / .08),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .92) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(110%) brightness(103%) !important;
+  backdrop-filter: blur(14px) saturate(110%) brightness(103%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="scroll-to-bottom"]:hover {
+  background:
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .98),
+      rgb(var(--ds-panel-2-rgb) / .74)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .28) !important;
+  color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="scroll-to-bottom"] svg {
+  color: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* Sidebar detail cards are portalled Radix tooltips. The structural fallback
+   matches their first rendered frame, before the renderer's semantic marker
+   is attached, so the native cool-white surface can never flash through. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-thread-detail"],
+    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+  ) {
+  background:
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .74) 0%,
+      rgb(var(--ds-panel-rgb) / .64) 54%,
+      rgb(var(--ds-panel-2-rgb) / .50) 100%) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .14) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 12px 28px rgb(var(--ds-bg-rgb) / .14),
+    0 3px 9px rgb(var(--ds-accent-rgb) / .07),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .64) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(110%) brightness(103%) !important;
+  backdrop-filter: blur(16px) saturate(110%) brightness(103%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-thread-detail"],
+    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+  ) button {
+  color: var(--ds-text) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-thread-detail"],
+    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+  ) button:hover {
+  background: rgb(var(--ds-accent-rgb) / .08) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-thread-detail"],
+    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+  ) :is(
+    [class~="text-secondary"],
+    [class~="text-tertiary"],
+    [class*="text-codex-description"]
+  ) {
+  color: rgb(var(--ds-muted-rgb) / .90) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-thread-detail"],
+    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+  ) svg {
+  color: currentColor !important;
+}
+
+/* Project previews keep the same lightness as the sidebar, but use a muted
+   botanical tint and clearer section rules so they read as structured project
+   metadata rather than another task preview. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-project-detail"],
+    [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
+  ) {
+  background:
+    radial-gradient(120% 90% at 8% 0%,
+      rgb(var(--ds-secondary-rgb) / .10),
+      transparent 56%),
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .80),
+      rgb(var(--ds-panel-rgb) / .70) 56%,
+      rgb(var(--ds-panel-2-rgb) / .56)) !important;
+  border: 1px solid rgb(var(--ds-secondary-rgb) / .18) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 15px 34px rgb(var(--ds-bg-rgb) / .16),
+    0 3px 10px rgb(var(--ds-secondary-rgb) / .08),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .70) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(108%) brightness(102%) !important;
+  backdrop-filter: blur(18px) saturate(108%) brightness(102%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-project-detail"],
+    [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
+  ) :is(button, [role="button"], [class~="group/project-hover-card-row"]) {
+  color: var(--ds-text) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-project-detail"],
+    [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
+  ) :is(button, [role="button"], [class~="group/project-hover-card-row"]):hover {
+  background: rgb(var(--ds-secondary-rgb) / .08) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-project-detail"],
+    [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
+  ) :is([class~="border-t"], [class~="border-b"]) {
+  border-color: rgb(var(--ds-secondary-rgb) / .16) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-project-detail"],
+    [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
+  ) [role="separator"] {
+  background-color: rgb(var(--ds-secondary-rgb) / .16) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="sidebar-project-detail"],
+    [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
+  ) :is([class~="text-secondary"], [class~="text-tertiary"], svg) {
+  color: rgb(var(--ds-muted-rgb) / .90) !important;
+}
+
+/* The low-quota notice is deliberately the most legible sidebar glass: it is
+   status and action UI, so its hierarchy is firmer without becoming opaque. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="sidebar-usage-notice"] {
+  background:
+    linear-gradient(150deg,
+      rgb(var(--ds-panel-rgb) / .90),
+      rgb(var(--ds-panel-rgb) / .82) 58%,
+      rgb(var(--ds-panel-2-rgb) / .68)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .21) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 16px 38px rgb(var(--ds-bg-rgb) / .18),
+    0 4px 12px rgb(var(--ds-accent-rgb) / .09),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .84) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(112%) brightness(102%) !important;
+  backdrop-filter: blur(20px) saturate(112%) brightness(102%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="sidebar-usage-notice"] :is([role="progressbar"], progress) {
+  background: rgb(var(--ds-panel-2-rgb) / .76) !important;
+  accent-color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="sidebar-usage-notice"] [role="progressbar"] > * {
+  background: linear-gradient(90deg,
+    var(--ds-accent), rgb(var(--ds-accent-alt-rgb) / 1)) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="sidebar-usage-notice"] :is(button:not([aria-label]), a) {
+  border-color: rgb(var(--ds-accent-rgb) / .18) !important;
+  color: var(--ds-text) !important;
+  background: rgb(var(--ds-panel-rgb) / .54) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="sidebar-usage-notice"] :is(button:not([aria-label]), a):hover {
+  border-color: rgb(var(--ds-accent-rgb) / .28) !important;
+  background: rgb(var(--ds-accent-rgb) / .10) !important;
+}
+
+/* The account menu is a deeper rose vellum layer. Its identity row, actions,
+   dividers and hover states stay distinct from project and quota surfaces. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="account-menu"],
+    [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
+  ) {
+  background:
+    radial-gradient(115% 88% at 10% 0%,
+      rgb(var(--ds-highlight-rgb) / .15),
+      transparent 58%),
+    linear-gradient(150deg,
+      rgb(var(--ds-panel-rgb) / .86),
+      rgb(var(--ds-panel-rgb) / .75) 56%,
+      rgb(var(--ds-panel-2-rgb) / .60)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .18) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 18px 42px rgb(var(--ds-bg-rgb) / .20),
+    0 4px 13px rgb(var(--ds-accent-rgb) / .08),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .76) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(114%) brightness(102%) !important;
+  backdrop-filter: blur(22px) saturate(114%) brightness(102%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="account-menu"],
+    [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
+  ) [role="menuitem"] {
+  color: var(--ds-text) !important;
+  border-color: transparent !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="account-menu"],
+    [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
+  ) [role="menuitem"]:is(:hover, [data-highlighted]) {
+  background: rgb(var(--ds-accent-rgb) / .09) !important;
+  color: var(--ds-text) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="account-menu"],
+    [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
+  ) > div > [role="menuitem"]:first-child {
+  background: rgb(var(--ds-panel-rgb) / .24) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="account-menu"],
+    [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
+  ) :is([role="separator"], hr) {
+  border-color: rgb(var(--ds-accent-rgb) / .14) !important;
+  background-color: rgb(var(--ds-accent-rgb) / .14) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="account-menu"],
+    [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
+  ) :is([class~="text-secondary"], [class~="text-tertiary"], svg) {
+  color: rgb(var(--ds-muted-rgb) / .90) !important;
+}
+
 html[data-dream-skin="active"] [data-user-message-bubble="true"] {
   border: 1px solid rgb(var(--ds-accent-rgb) / .18) !important;
   background: rgb(var(--ds-panel-rgb) / .48) !important;
@@ -1479,6 +1821,76 @@ html[data-dream-skin="active"] [data-user-message-bubble="true"] {
     0 6px 18px rgb(var(--ds-bg-rgb) / .10),
     inset 0 1px rgb(var(--ds-text-rgb) / .12) !important;
   backdrop-filter: blur(12px) saturate(108%) brightness(103%) !important;
+}
+
+/* The native thread summary popover (outputs, subagents, and sources) is an
+   opaque cool-white elevated surface in the current client. The renderer
+   gives only that surface a semantic part so Roseblade can use the same warm,
+   restrained glass language as its composer without affecting dialogs or the
+   confirmed assistant-reading veil. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] {
+  background:
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .82) 0%,
+      rgb(var(--ds-panel-rgb) / .74) 46%,
+      rgb(var(--ds-panel-2-rgb) / .68) 100%) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .20) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 18px 44px rgb(var(--ds-bg-rgb) / .20),
+    0 3px 12px rgb(var(--ds-accent-rgb) / .10),
+    inset 0 1px rgb(var(--ds-text-rgb) / .42) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(112%) brightness(103%) !important;
+  backdrop-filter: blur(22px) saturate(112%) brightness(103%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] section[role="presentation"] > header,
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] section[role="presentation"] > header::before {
+  background: transparent !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] section[role="presentation"]::after {
+  background: rgb(var(--ds-accent-rgb) / .16) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] section[role="presentation"] > header > button[aria-expanded] {
+  color: rgb(var(--ds-text-rgb) / .72) !important;
+  text-shadow: 0 1px rgb(var(--ds-panel-rgb) / .56);
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-icon-button"] {
+  border-color: transparent !important;
+  color: rgb(var(--ds-accent-rgb) / .78) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-icon-button"]:hover {
+  background: rgb(var(--ds-accent-rgb) / .10) !important;
+  color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-item-button"] {
+  color: rgb(var(--ds-text-rgb) / .78) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-item-button"]:hover::before {
+  background: rgb(var(--ds-accent-rgb) / .09) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="thread-summary-panel"] :is(
+    [data-slot="thread-summary-panel-icon-button"],
+    [data-slot="thread-summary-panel-item-button"]
+  ) svg {
+  color: currentColor !important;
 }
 
 html[data-dream-skin="active"] [data-markdown-copy="code-block"] {
@@ -1542,7 +1954,7 @@ html[data-dream-skin="active"]
    dark evergreen edge of the artwork. Add only a feathered warm reading veil
    on the far side: no card border, no shadow, no text-color or layout change. */
 @media (min-width: 1280px) {
-  html[data-dream-skin="active"][data-dream-art-wide="true"]
+  html[data-dream-skin="active"][data-dream-art-wide="true"]:not([data-dream-theme-id="preset-roseblade-reverie"])
     .thread-scroll-container
     [data-local-conversation-final-assistant="true"][data-ds-part="message"] {
     border-color: transparent !important;
@@ -1558,6 +1970,57 @@ html[data-dream-skin="active"]
       ) !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
+  }
+
+  /* Roseblade's high-detail artwork needs local contrast control, not another
+     white page veil. The message becomes only a containing block; a separate
+     feathered pseudo-layer softens and desaturates the artwork under the copy. */
+  html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"][data-dream-art-wide="true"]
+    .thread-scroll-container
+    [data-local-conversation-final-assistant="true"][data-ds-part="message"] {
+    border-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"][data-dream-art-wide="true"]
+    .thread-scroll-container
+    [data-local-conversation-final-assistant="true"][data-ds-part="message"]
+    [data-markdown-text-style="assistant-message"] {
+    position: relative !important;
+    isolation: isolate;
+    text-shadow: 0 1px 1px rgb(var(--ds-panel-rgb) / .42);
+  }
+
+  html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"][data-dream-art-wide="true"]
+    .thread-scroll-container
+    [data-local-conversation-final-assistant="true"][data-ds-part="message"]
+    [data-markdown-text-style="assistant-message"]::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -12px -16px;
+    pointer-events: none;
+    border: 0;
+    border-radius: 0;
+    background:
+      radial-gradient(ellipse at 38% 34%, rgb(var(--ds-panel-rgb) / .52), rgb(var(--ds-panel-rgb) / .43) 68%);
+    box-shadow: none;
+    -webkit-backdrop-filter: blur(14px) saturate(76%) brightness(102%);
+    backdrop-filter: blur(14px) saturate(76%) brightness(102%);
+    -webkit-mask-image:
+      radial-gradient(ellipse 49% 49% at 50% 50%, #000 0%, #000 46%, rgb(0 0 0 / .82) 60%, rgb(0 0 0 / .46) 74%, rgb(0 0 0 / .18) 86%, transparent 100%),
+      radial-gradient(ellipse 18% 16% at 18% 16%, #000 0%, #000 32%, rgb(0 0 0 / .70) 50%, rgb(0 0 0 / .34) 68%, rgb(0 0 0 / .12) 84%, transparent 100%),
+      radial-gradient(ellipse 20% 16% at 20% 84%, #000 0%, #000 30%, rgb(0 0 0 / .68) 50%, rgb(0 0 0 / .32) 68%, rgb(0 0 0 / .10) 84%, transparent 100%),
+      radial-gradient(ellipse 24% 16% at 76% 84%, #000 0%, #000 28%, rgb(0 0 0 / .66) 48%, rgb(0 0 0 / .30) 68%, rgb(0 0 0 / .10) 84%, transparent 100%);
+    -webkit-mask-composite: source-over, source-over, source-over;
+    mask-image:
+      radial-gradient(ellipse 49% 49% at 50% 50%, #000 0%, #000 46%, rgb(0 0 0 / .82) 60%, rgb(0 0 0 / .46) 74%, rgb(0 0 0 / .18) 86%, transparent 100%),
+      radial-gradient(ellipse 18% 16% at 18% 16%, #000 0%, #000 32%, rgb(0 0 0 / .70) 50%, rgb(0 0 0 / .34) 68%, rgb(0 0 0 / .12) 84%, transparent 100%),
+      radial-gradient(ellipse 20% 16% at 20% 84%, #000 0%, #000 30%, rgb(0 0 0 / .68) 50%, rgb(0 0 0 / .32) 68%, rgb(0 0 0 / .10) 84%, transparent 100%),
+      radial-gradient(ellipse 24% 16% at 76% 84%, #000 0%, #000 28%, rgb(0 0 0 / .66) 48%, rgb(0 0 0 / .30) 68%, rgb(0 0 0 / .10) 84%, transparent 100%);
+    mask-composite: add, add, add;
   }
 }
 

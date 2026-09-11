@@ -1,12 +1,24 @@
-# Sunlit White Blossoms · Dream Skin Theme
+# DreamSkin Themes & macOS Refinements
 
-以 Tsuyoshi Kozu 的阳光白花摄影作品为背景，为 Dream Skin 1.5.16 制作的明亮暖色主题与 macOS 精修包。
+为 Dream Skin 1.5.16 制作的独立主题源文件与 macOS 引擎精修。当前包含 Sunlit White Blossoms 和 Roseblade Reverie，两个主题使用不同 ID、背景和配色，不会相互覆盖。
+
+## 当前源码
+
+### Roseblade Reverie · 蔷薇刃梦
+
+![Roseblade Reverie 背景预览](themes/roseblade-reverie/background.jpg)
+
+- 主题 ID：`preset-roseblade-reverie`
+- 主题源文件：[`themes/roseblade-reverie`](themes/roseblade-reverie)
+- 当前更新为源码版，按要求未重新打包 ZIP。
+
+### Sunlit White Blossoms
 
 ![主题背景预览](theme/background.jpg)
 
-## 下载
+## 已有下载
 
-- 最新完整 macOS 精修包：[`dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v3-macOS.zip`](dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v3-macOS.zip)
+- Sunlit White Blossoms macOS 精修包：[`dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v3-macOS.zip`](dist/Tsuyoshi-Kozu-Sunlit-Blossoms-DreamSkin-1.5.16-Refined-v3-macOS.zip)
 - 仅主题导入包：[`dist/Tsuyoshi-Kozu-Sunlit-Blossoms.theme.zip`](dist/Tsuyoshi-Kozu-Sunlit-Blossoms.theme.zip)
 
 完整包 SHA-256：
@@ -15,7 +27,15 @@
 00d1404efe3f6301aadd3f6531c9fd0c91d0931f11c90f636fe7517a4f7ce3de
 ```
 
-## 精修内容
+## Roseblade 当前精修
+
+- 保留蔷薇、手部与刀刃细节，长文区域使用柔和羽化磨砂阅读层。
+- 输入框、用户消息、代码块、写作卡片和右上角输出面板统一为暖粉玻璃质感。
+- 会话详情、项目详情、额度提醒和账户菜单采用不同透明度与色调，保留层次。
+- 浮层从首帧开始即匹配主题配色，修复原生冷白背景短暂闪现。
+- 发送按钮、滚动到底部按钮、顶部聊天/工作切换器和各类悬停状态与主题协调。
+
+## Sunlit White Blossoms 精修
 
 - 减轻 ambient 任务页的全局遮罩，保留明亮背景。
 - 发送/停止按钮使用深琥珀底色与高对比白色图标。
@@ -45,9 +65,11 @@
 ## 仓库结构
 
 ```text
-theme/          可编辑的 theme.json、Safe CSS 与背景图
-engine-patch/   Dream Skin 1.5.16 的视觉精修 CSS
-dist/           可直接分发的主题 ZIP 与完整 macOS ZIP
+theme/                       Sunlit White Blossoms 可编辑源文件
+themes/roseblade-reverie/    Roseblade Reverie 独立源文件
+engine-patch/                Dream Skin 1.5.16 共享引擎与主题限定精修
+tools/                       Roseblade 背景可复现处理工具
+dist/                        已生成的分发包
 ```
 
 ## 验证
@@ -55,11 +77,12 @@ dist/           可直接分发的主题 ZIP 与完整 macOS ZIP
 - `theme/` 与独立主题 ZIP 均通过 Dream Skin 1.5.16 简化格式验证。
 - Safe CSS 校验通过：9 条规则、48 项声明。
 - 完整包经过 ZIP 完整性、内置 SHA-256 和 macOS 应用签名复验。
+- Roseblade 当前源文件通过 Dream Skin 1.5.16 格式、Safe CSS、资源路径和实机载荷验证。
 
 ## 来源与许可
 
 背景摄影：[Tsuyoshi Kozu — White blossoms are illuminated by the sunlight](https://unsplash.com/photos/white-blossoms-are-illuminated-by-the-sunlight-xDhSwX9iVxY)，依据 [Unsplash License](https://unsplash.com/license) 使用。
 
-软件代码与 CSS 修改按 [MIT License](LICENSE) 发布。照片仍遵循 Unsplash License；请勿将单张原照独立出售或用于组建与 Unsplash 类似、竞争的图片库。
+软件代码与 CSS 修改按 [MIT License](LICENSE) 发布。Sunlit 照片仍遵循 Unsplash License；Roseblade 背景为用户提供的美术素材，不适用于 MIT 软件许可。
 
 Codex Dream Skin 是非官方自定义项目，与 OpenAI 无隶属、授权或背书关系。

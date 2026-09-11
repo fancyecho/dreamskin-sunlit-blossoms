@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "preset-roseblade-reverie",
+  "name": "Roseblade Reverie · 蔷薇刃梦",
+  "image": "background.jpg",
+  "appearance": "light",
+  "art": {
+    "focusX": 0.56,
+    "focusY": 0.54,
+    "safeArea": "none",
+    "taskMode": "ambient"
+  },
+  "colors": {
+    "background": "#f0d9d8",
+    "panel": "#f7e9e8",
+    "panelAlt": "#dec1c3",
+    "accent": "#8b2f48",
+    "accentAlt": "#b85870",
+    "secondary": "#42645a",
+    "highlight": "#d79bad",
+    "text": "#33262c",
+    "muted": "#614d56",
+    "line": "#caa2ab"
+  }
+}
