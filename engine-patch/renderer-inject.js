@@ -767,6 +767,11 @@
       '[class*="max-w-"][class*="rounded-2xl"][class*="text-start"]',
     ) ?? node;
   });
+  const resolvedAssistantReadingProseNodes = () => genericNodes(
+    '[data-markdown-text-style="assistant-message"]',
+  ).filter((node) =>
+    node.closest?.('[data-local-conversation-final-assistant="true"]')
+    || node.closest?.('[data-content-search-unit-key$=":assistant"]'));
   const resolvedThreadSummaryPanelNodes = () => {
     const surfaces = genericNodes(
       '[data-slot="thread-summary-panel-item-group"], ' +
@@ -776,11 +781,27 @@
     )).filter(Boolean);
     return [...new Set(surfaces)];
   };
+  const resolvedWritingBlockAddToConversationNodes = () => genericNodes(
+    '[data-oai-writing-block-surface] button',
+  ).filter((node) => {
+    const labels = [
+      node.getAttribute?.('aria-label'),
+      node.getAttribute?.('title'),
+      node.innerText,
+      node.textContent,
+    ].filter(Boolean).map((label) => label.replace(/\s+/g, ' ').trim());
+    return labels.some((label) =>
+      /^(?:添加到对话|添加至对话|Add to (?:chat|conversation))$/i.test(label));
+  });
+  const resolvedConversationNavigationPreviewNodes = () => genericNodes(
+    '[data-thread-user-message-navigation-tooltip-preview="true"]',
+  );
   const resolvedSidebarThreadDetailNodes = () => genericNodes(
     '[role="tooltip"][data-side="right"]',
   ).filter((node) =>
-    node.querySelector?.('button[class*="line-clamp"]')
-    && node.querySelector?.('svg[class*="text-codex-description"]'));
+    node.querySelector?.('[class*="line-clamp"]')
+    && node.querySelector?.('[class*="text-codex-description"]')
+    && !node.querySelector?.('[class~="group/project-hover-card-row"]'));
   const resolvedSidebarProjectDetailNodes = () => genericNodes(
     '[role="tooltip"][data-side="right"]',
   ).filter((node) =>
@@ -819,6 +840,183 @@
   ).filter((node) =>
     node.querySelector?.('img[class~="rounded-full"]')
     && (node.querySelectorAll?.('[role="menuitem"]').length ?? 0) >= 4);
+  const normalizedNodeText = (node) => String(
+    node?.innerText || node?.textContent || "",
+  ).replace(/\s+/g, " ").trim();
+  const smallestVisibleSurface = (nodes, predicate) => nodes
+    .filter((node) => {
+      const rect = node.getBoundingClientRect?.();
+      return rect && rect.width > 0 && rect.height > 0 && predicate(node);
+    })
+    .sort((a, b) => {
+      const ar = a.getBoundingClientRect();
+      const br = b.getBoundingClientRect();
+      return (ar.width * ar.height) - (br.width * br.height);
+    })[0] ?? null;
+  const semanticOverlaySurfaces = () => genericNodes(
+    '[role="menu"], [role="dialog"], [role="listbox"], [data-slot="popover-content"]',
+  );
+  const resolvedModeSwitchMenuNodes = () => {
+    const node = smallestVisibleSurface(semanticOverlaySurfaces(), (candidate) => {
+      const text = normalizedNodeText(candidate);
+      return /(?:^|\s)ChatGPT(?:\s|$)/i.test(text)
+        && /(?:^|\s)Codex(?:\s|$)/i.test(text)
+        && /(?:创建|学习|探索|构建|调试|发布|create|learn|explore|build|debug|ship)/i.test(text);
+    });
+    return node ? [node] : [];
+  };
+  const resolvedPermissionMenuNodes = () => {
+    const node = smallestVisibleSurface(semanticOverlaySurfaces(), (candidate) => {
+      const text = normalizedNodeText(candidate);
+      return /(?:请求批准|帮我批准|完全访问权限|更改权限|request approval|full access|permissions?)/i.test(text)
+        && /(?:批准|权限|approval|access)/i.test(text);
+    });
+    return node ? [node] : [];
+  };
+  const resolvedTextAnchoredSurface = ({ anchorPattern, contentPatterns }) => {
+    const matches = [];
+    const anchors = genericNodes(
+      'button, [role="menuitem"], [role="option"], [data-slot="menu-item"]',
+    ).filter((node) => anchorPattern.test(normalizedNodeText(node)));
+    for (const anchor of anchors) {
+      for (let parent = anchor.parentElement; parent && parent !== document.body;
+        parent = parent.parentElement) {
+        const rect = parent.getBoundingClientRect?.();
+        if (!rect || rect.width < 360 || rect.height < 180) continue;
+        const text = normalizedNodeText(parent);
+        const markerCount = contentPatterns.reduce(
+          (count, pattern) => count + Number(pattern.test(text)), 0,
+        );
+        if (markerCount >= 3) {
+          let surface = parent;
+          for (let step = 0; step < 4 && surface && surface !== document.body; step += 1) {
+            const style = getComputedStyle(surface);
+            const backgroundIsPainted = style.backgroundColor !== "rgba(0, 0, 0, 0)"
+              || style.backgroundImage !== "none";
+            if (backgroundIsPainted && Number.parseFloat(style.borderRadius) >= 12) break;
+            surface = surface.parentElement;
+          }
+          matches.push(surface && surface !== document.body ? surface : parent);
+          break;
+        }
+      }
+    }
+    return [...new Set(matches)].sort((a, b) => {
+      const ar = a.getBoundingClientRect();
+      const br = b.getBoundingClientRect();
+      return (ar.width * ar.height) - (br.width * br.height);
+    });
+  };
+  const resolvedComposerAddMenuNodes = () => {
+    // The add panel is built from a rounded suggestion-menu chrome around an
+    // inner listbox. Resolve from its stable first action before considering
+    // semantic overlay roles so the public part lands on the painted chrome,
+    // rather than on a transparent list child.
+    const anchored = resolvedTextAnchoredSurface({
+      anchorPattern: /^(?:文件和文件夹|Files? and folders?)$/i,
+      contentPatterns: [
+        /(?:目标|Goal)/i,
+        /(?:计划模式|Plan mode)/i,
+        /(?:录制技能|Record skill)/i,
+        /(?:绘图|Draw)/i,
+        /(?:插件|Plugins?)/i,
+      ],
+    });
+    if (anchored.length) return anchored.slice(0, 1);
+    const semantic = smallestVisibleSurface(semanticOverlaySurfaces(), (candidate) => {
+      const text = normalizedNodeText(candidate);
+      return /(?:文件和文件夹|计划模式|录制技能|绘图|插件|files? and folders?|plan mode|skills?|plugins?)/i.test(text)
+        && /(?:添加|文件|插件|add|file|plugin)/i.test(text);
+    });
+    if (semantic) return [semantic];
+    return [];
+  };
+  const resolvedIntelligenceMenuNodes = () => {
+    const node = smallestVisibleSurface(semanticOverlaySurfaces(), (candidate) => {
+      // Current Codex builds keep the compact reasoning picker deliberately
+      // sparse: only the selected model and effort are rendered as visible
+      // text. Prefer its structural controls before falling back to copy so
+      // localization and virtualized model lists cannot make the part vanish.
+      if (candidate.matches?.('[class*="_ModelPickerDropdownContent_"]')
+        || (candidate.querySelector?.('[class*="_ViewToggle_"]')
+          && candidate.querySelector?.('[class*="_SliderKeyboardControl_"]'))) {
+        return true;
+      }
+      const text = normalizedNodeText(candidate);
+      const effortMatches = text.match(
+        /(?:无|极低|轻度|中|高|极高|最高|Ultra|持续|none|minimal|low|medium|high|xhigh|max)/gi,
+      ) || [];
+      return /(?:GPT-|选择强度|reasoning|effort|model)/i.test(text)
+        && effortMatches.length >= 3;
+    });
+    return node ? [node] : [];
+  };
+  const resolvedSearchPaletteNodes = () => {
+    const inputs = genericNodes(
+      'input[placeholder*="搜索"], input[placeholder*="Search" i], '
+      + '[role="searchbox"][placeholder*="搜索"], [role="searchbox"][placeholder*="Search" i]',
+    ).filter((node) => !node.closest?.('[data-ds-part="composer"]'));
+    const surfaces = [];
+    for (const input of inputs) {
+      const exact = input.closest?.('[role="dialog"]');
+      if (exact) {
+        surfaces.push(exact);
+        continue;
+      }
+      for (let parent = input.parentElement; parent && parent !== document.body;
+        parent = parent.parentElement) {
+        const rect = parent.getBoundingClientRect?.();
+        if (rect && rect.width >= 420 && rect.height >= 240) {
+          surfaces.push(parent);
+          break;
+        }
+      }
+    }
+    return [...new Set(surfaces)];
+  };
+  const resolvedMessageEditParts = () => {
+    const thread = genericNodes('.thread-scroll-container')[0];
+    if (!thread) return { surfaces: [], cancels: [], submits: [] };
+    const buttons = [...thread.querySelectorAll('button')].filter((button) =>
+      !button.closest?.('[data-ds-part="composer"], [data-codex-composer-root]'));
+    const cancels = buttons.filter((button) =>
+      /^(?:取消|Cancel)$/i.test(normalizedNodeText(button)));
+    const submits = buttons.filter((button) =>
+      /^(?:发送|Send)$/i.test(normalizedNodeText(button)));
+    const surfaces = [];
+    const matchedCancels = [];
+    const matchedSubmits = [];
+    for (const cancel of cancels) {
+      const submit = submits.find((candidate) => {
+        let parent = cancel.parentElement;
+        while (parent && parent !== thread) {
+          if (parent.contains(candidate)) return true;
+          parent = parent.parentElement;
+        }
+        return false;
+      });
+      if (!submit) continue;
+      let surface = cancel.parentElement;
+      while (surface && surface !== thread) {
+        const rect = surface.getBoundingClientRect?.();
+        const hasEditor = Boolean(surface.querySelector?.(
+          'textarea, [contenteditable="true"], [role="textbox"]',
+        ));
+        if (surface.contains(submit) && rect?.width >= 420
+          && rect?.height >= 80 && (hasEditor || rect.height >= 120)) break;
+        surface = surface.parentElement;
+      }
+      if (!surface || surface === thread) continue;
+      surfaces.push(surface);
+      matchedCancels.push(cancel);
+      matchedSubmits.push(submit);
+    }
+    return {
+      surfaces: [...new Set(surfaces)],
+      cancels: [...new Set(matchedCancels)],
+      submits: [...new Set(matchedSubmits)],
+    };
+  };
   const resolvedScrollToBottomNodes = () => genericNodes(
     'button[aria-label="滚动到底部"], button[aria-label*="bottom" i], ' +
     'button[aria-hidden][class~="absolute"][class~="z-30"][class~="end-1/2"]',
@@ -835,6 +1033,7 @@
   const refreshParts = () => {
     metrics.partPasses += 1;
     const desired = new Map();
+    const messageEditParts = resolvedMessageEditParts();
     addPart(desired, "root", [document.documentElement]);
     addPart(desired, "sidebar", [...selectorNodes("left-panel"), ...fallbackSidebarNodes()]);
     addPart(desired, "header", selectorNodes("header-tint"));
@@ -844,12 +1043,23 @@
     addPart(desired, "main", [...selectorNodes("shell-main"), ...fallbackMainNodes()]);
     addPart(desired, "project-list", selectorNodes("project-selector"));
     addPart(desired, "thread", selectorNodes("thread-surface"));
+    addPart(desired, "message-edit-surface", messageEditParts.surfaces);
+    addPart(desired, "message-edit-cancel", messageEditParts.cancels);
+    addPart(desired, "message-edit-submit", messageEditParts.submits);
     addPart(desired, "message", resolvedMessageNodes());
+    addPart(desired, "assistant-reading-prose", resolvedAssistantReadingProseNodes());
     addPart(desired, "thread-summary-panel", resolvedThreadSummaryPanelNodes());
+    addPart(desired, "writing-block-add-to-conversation", resolvedWritingBlockAddToConversationNodes());
+    addPart(desired, "conversation-navigation-preview", resolvedConversationNavigationPreviewNodes());
     addPart(desired, "sidebar-thread-detail", resolvedSidebarThreadDetailNodes());
     addPart(desired, "sidebar-project-detail", resolvedSidebarProjectDetailNodes());
     addPart(desired, "sidebar-usage-notice", resolvedSidebarUsageNoticeNodes());
     addPart(desired, "account-menu", resolvedAccountMenuNodes());
+    addPart(desired, "mode-switch-menu", resolvedModeSwitchMenuNodes());
+    addPart(desired, "permission-menu", resolvedPermissionMenuNodes());
+    addPart(desired, "composer-add-menu", resolvedComposerAddMenuNodes());
+    addPart(desired, "intelligence-menu", resolvedIntelligenceMenuNodes());
+    addPart(desired, "search-palette", resolvedSearchPaletteNodes());
     const composerNodes = [...selectorNodes("composer-chrome"), ...fallbackComposerNodes()];
     addPart(desired, "composer", composerNodes);
     addPart(desired, "scroll-to-bottom", resolvedScrollToBottomNodes());

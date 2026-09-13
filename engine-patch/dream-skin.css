@@ -1576,33 +1576,63 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   opacity: 1 !important;
 }
 
-/* Sidebar detail cards are portalled Radix tooltips. The structural fallback
-   matches their first rendered frame, before the renderer's semantic marker
-   is attached, so the native cool-white surface can never flash through. */
+/* The conversation navigator preview sits directly over the artwork. Keep it
+   lighter than sidebar detail cards while retaining enough blur for excerpts. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="conversation-navigation-preview"],
+    [data-thread-user-message-navigation-tooltip-preview="true"]
+  ) {
+  background:
+    radial-gradient(125% 105% at 10% 0%,
+      rgb(var(--ds-highlight-rgb) / .07),
+      transparent 58%),
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .54) 0%,
+      rgb(var(--ds-panel-rgb) / .44) 54%,
+      rgb(var(--ds-panel-rgb) / .32) 100%) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .095) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 10px 26px rgb(var(--ds-accent-rgb) / .045),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .56) !important;
+  -webkit-backdrop-filter: blur(11px) saturate(104%) brightness(106%) !important;
+  backdrop-filter: blur(11px) saturate(104%) brightness(106%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="conversation-navigation-preview"],
+    [data-thread-user-message-navigation-tooltip-preview="true"]
+  ) [data-markdown-text-style="small"] {
+  color: rgb(var(--ds-muted-rgb) / .88) !important;
+}
+
+/* Sidebar detail cards are portalled Radix tooltips. Keep their first frame
+   warm, but let the artwork show through a clear, low-saturation glass. */
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="sidebar-thread-detail"],
-    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+    [role="tooltip"][data-side="right"]:has([class*="line-clamp"]):has([class*="text-codex-description"]):not(:has([class~="group/project-hover-card-row"]))
   ) {
   background:
     linear-gradient(145deg,
-      rgb(var(--ds-panel-rgb) / .74) 0%,
-      rgb(var(--ds-panel-rgb) / .64) 54%,
-      rgb(var(--ds-panel-2-rgb) / .50) 100%) !important;
-  border: 1px solid rgb(var(--ds-accent-rgb) / .14) !important;
+      rgb(var(--ds-panel-rgb) / .60) 0%,
+      rgb(var(--ds-panel-rgb) / .52) 54%,
+      rgb(var(--ds-panel-rgb) / .42) 100%) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .11) !important;
   color: var(--ds-text) !important;
   box-shadow:
-    0 12px 28px rgb(var(--ds-bg-rgb) / .14),
-    0 3px 9px rgb(var(--ds-accent-rgb) / .07),
-    inset 0 1px rgb(var(--ds-panel-rgb) / .64) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(110%) brightness(103%) !important;
-  backdrop-filter: blur(16px) saturate(110%) brightness(103%) !important;
+    0 12px 28px rgb(var(--ds-accent-rgb) / .055),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .62) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(102%) brightness(104%) !important;
+  backdrop-filter: blur(12px) saturate(102%) brightness(104%) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="sidebar-thread-detail"],
-    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+    [role="tooltip"][data-side="right"]:has([class*="line-clamp"]):has([class*="text-codex-description"]):not(:has([class~="group/project-hover-card-row"]))
   ) button {
   color: var(--ds-text) !important;
 }
@@ -1610,7 +1640,7 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="sidebar-thread-detail"],
-    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+    [role="tooltip"][data-side="right"]:has([class*="line-clamp"]):has([class*="text-codex-description"]):not(:has([class~="group/project-hover-card-row"]))
   ) button:hover {
   background: rgb(var(--ds-accent-rgb) / .08) !important;
 }
@@ -1618,7 +1648,7 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="sidebar-thread-detail"],
-    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+    [role="tooltip"][data-side="right"]:has([class*="line-clamp"]):has([class*="text-codex-description"]):not(:has([class~="group/project-hover-card-row"]))
   ) :is(
     [class~="text-secondary"],
     [class~="text-tertiary"],
@@ -1630,14 +1660,13 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="sidebar-thread-detail"],
-    [role="tooltip"][data-side="right"]:has(button[class*="line-clamp"]):has(svg[class*="text-codex-description"])
+    [role="tooltip"][data-side="right"]:has([class*="line-clamp"]):has([class*="text-codex-description"]):not(:has([class~="group/project-hover-card-row"]))
   ) svg {
   color: currentColor !important;
 }
 
-/* Project previews keep the same lightness as the sidebar, but use a muted
-   botanical tint and clearer section rules so they read as structured project
-   metadata rather than another task preview. */
+/* Project previews stay one step firmer than task previews. A tiny rose bloom
+   and restrained rules provide structure without the previous gray-green cast. */
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="sidebar-project-detail"],
@@ -1645,20 +1674,19 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   ) {
   background:
     radial-gradient(120% 90% at 8% 0%,
-      rgb(var(--ds-secondary-rgb) / .10),
+      rgb(var(--ds-highlight-rgb) / .055),
       transparent 56%),
     linear-gradient(145deg,
-      rgb(var(--ds-panel-rgb) / .80),
-      rgb(var(--ds-panel-rgb) / .70) 56%,
-      rgb(var(--ds-panel-2-rgb) / .56)) !important;
-  border: 1px solid rgb(var(--ds-secondary-rgb) / .18) !important;
+      rgb(var(--ds-panel-rgb) / .66),
+      rgb(var(--ds-panel-rgb) / .57) 56%,
+      rgb(var(--ds-panel-rgb) / .46)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .12) !important;
   color: var(--ds-text) !important;
   box-shadow:
-    0 15px 34px rgb(var(--ds-bg-rgb) / .16),
-    0 3px 10px rgb(var(--ds-secondary-rgb) / .08),
-    inset 0 1px rgb(var(--ds-panel-rgb) / .70) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(108%) brightness(102%) !important;
-  backdrop-filter: blur(18px) saturate(108%) brightness(102%) !important;
+    0 14px 32px rgb(var(--ds-accent-rgb) / .06),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .66) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(103%) brightness(104%) !important;
+  backdrop-filter: blur(14px) saturate(103%) brightness(104%) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
@@ -1674,7 +1702,7 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
     [data-ds-part="sidebar-project-detail"],
     [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
   ) :is(button, [role="button"], [class~="group/project-hover-card-row"]):hover {
-  background: rgb(var(--ds-secondary-rgb) / .08) !important;
+  background: rgb(var(--ds-accent-rgb) / .07) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
@@ -1682,7 +1710,7 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
     [data-ds-part="sidebar-project-detail"],
     [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
   ) :is([class~="border-t"], [class~="border-b"]) {
-  border-color: rgb(var(--ds-secondary-rgb) / .16) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .12) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
@@ -1690,7 +1718,7 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
     [data-ds-part="sidebar-project-detail"],
     [role="tooltip"][data-side="right"]:has([class~="group/project-hover-card-row"])
   ) [role="separator"] {
-  background-color: rgb(var(--ds-secondary-rgb) / .16) !important;
+  background-color: rgb(var(--ds-accent-rgb) / .12) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
@@ -1701,28 +1729,27 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   color: rgb(var(--ds-muted-rgb) / .90) !important;
 }
 
-/* The low-quota notice is deliberately the most legible sidebar glass: it is
-   status and action UI, so its hierarchy is firmer without becoming opaque. */
+/* Quota is status and action UI, so it remains the clearest sidebar layer,
+   while using only warm light glass instead of a dark panel-alt endpoint. */
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   [data-ds-part="sidebar-usage-notice"] {
   background:
     linear-gradient(150deg,
-      rgb(var(--ds-panel-rgb) / .90),
-      rgb(var(--ds-panel-rgb) / .82) 58%,
-      rgb(var(--ds-panel-2-rgb) / .68)) !important;
-  border: 1px solid rgb(var(--ds-accent-rgb) / .21) !important;
+      rgb(var(--ds-panel-rgb) / .76),
+      rgb(var(--ds-panel-rgb) / .68) 58%,
+      rgb(var(--ds-panel-rgb) / .58)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .16) !important;
   color: var(--ds-text) !important;
   box-shadow:
-    0 16px 38px rgb(var(--ds-bg-rgb) / .18),
-    0 4px 12px rgb(var(--ds-accent-rgb) / .09),
-    inset 0 1px rgb(var(--ds-panel-rgb) / .84) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(112%) brightness(102%) !important;
-  backdrop-filter: blur(20px) saturate(112%) brightness(102%) !important;
+    0 16px 36px rgb(var(--ds-accent-rgb) / .075),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .76) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(104%) brightness(104%) !important;
+  backdrop-filter: blur(16px) saturate(104%) brightness(104%) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   [data-ds-part="sidebar-usage-notice"] :is([role="progressbar"], progress) {
-  background: rgb(var(--ds-panel-2-rgb) / .76) !important;
+  background: rgb(var(--ds-accent-rgb) / .12) !important;
   accent-color: var(--ds-accent) !important;
 }
 
@@ -1745,8 +1772,8 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   background: rgb(var(--ds-accent-rgb) / .10) !important;
 }
 
-/* The account menu is a deeper rose vellum layer. Its identity row, actions,
-   dividers and hover states stay distinct from project and quota surfaces. */
+/* Account actions use a softly luminous rose glass. The identity row and
+   dividers keep the menu distinct without making the whole surface dense. */
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   :is(
     [data-ds-part="account-menu"],
@@ -1754,20 +1781,19 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   ) {
   background:
     radial-gradient(115% 88% at 10% 0%,
-      rgb(var(--ds-highlight-rgb) / .15),
+      rgb(var(--ds-highlight-rgb) / .075),
       transparent 58%),
     linear-gradient(150deg,
-      rgb(var(--ds-panel-rgb) / .86),
-      rgb(var(--ds-panel-rgb) / .75) 56%,
-      rgb(var(--ds-panel-2-rgb) / .60)) !important;
-  border: 1px solid rgb(var(--ds-accent-rgb) / .18) !important;
+      rgb(var(--ds-panel-rgb) / .69),
+      rgb(var(--ds-panel-rgb) / .60) 56%,
+      rgb(var(--ds-panel-rgb) / .49)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .13) !important;
   color: var(--ds-text) !important;
   box-shadow:
-    0 18px 42px rgb(var(--ds-bg-rgb) / .20),
-    0 4px 13px rgb(var(--ds-accent-rgb) / .08),
-    inset 0 1px rgb(var(--ds-panel-rgb) / .76) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(114%) brightness(102%) !important;
-  backdrop-filter: blur(22px) saturate(114%) brightness(102%) !important;
+    0 17px 38px rgb(var(--ds-accent-rgb) / .07),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .70) !important;
+  -webkit-backdrop-filter: blur(17px) saturate(104%) brightness(104%) !important;
+  backdrop-filter: blur(17px) saturate(104%) brightness(104%) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
@@ -1793,7 +1819,7 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
     [data-ds-part="account-menu"],
     [role="menu"][data-side="top"][data-align="start"][data-radix-menu-content]:has(img[class~="rounded-full"])
   ) > div > [role="menuitem"]:first-child {
-  background: rgb(var(--ds-panel-rgb) / .24) !important;
+  background: rgb(var(--ds-panel-rgb) / .18) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
@@ -1813,6 +1839,458 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
   color: rgb(var(--ds-muted-rgb) / .90) !important;
 }
 
+/* Native popovers and Radix menus are inserted with a cool-white paint before
+   the runtime can classify them. This structural base is intentionally light
+   and warm so their very first frame already belongs to Roseblade. Account
+   and richer preview surfaces keep their dedicated treatments above/below. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][data-radix-menu-content]:not(:has(img[class~="rounded-full"])),
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-slot="popover-content"][data-side],
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="listbox"][data-side],
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-radix-popper-content-wrapper] > div:not([role="tooltip"]):not(:has(img[class~="rounded-full"])) {
+  background:
+    radial-gradient(118% 92% at 10% 0%,
+      rgb(var(--ds-highlight-rgb) / .065),
+      transparent 58%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .68),
+      rgb(var(--ds-panel-rgb) / .52) 58%,
+      rgb(var(--ds-panel-rgb) / .40)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .115) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 15px 34px rgb(var(--ds-accent-rgb) / .055),
+    0 4px 14px rgb(var(--ds-bg-rgb) / .09),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .64) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(107%) brightness(106%) !important;
+  backdrop-filter: blur(16px) saturate(107%) brightness(106%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][data-radix-menu-content]:not(:has(img[class~="rounded-full"]))
+  :is([role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"], [role="option"]) {
+  color: var(--ds-text) !important;
+  border-color: transparent !important;
+  transition: background-color 150ms ease, color 150ms ease !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][data-radix-menu-content]:not(:has(img[class~="rounded-full"]))
+  :is([role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"], [role="option"])
+  :is(svg, span) {
+  color: currentColor !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][data-radix-menu-content]:not(:has(img[class~="rounded-full"]))
+  :is([role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"], [role="option"]):is(
+    :hover, [data-highlighted], [aria-selected="true"], [aria-checked="true"]
+  ) {
+  background: rgb(var(--ds-accent-rgb) / .075) !important;
+  color: var(--ds-text) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][data-radix-menu-content]:not(:has(img[class~="rounded-full"]))
+  :is([role="separator"], hr) {
+  border-color: rgb(var(--ds-accent-rgb) / .105) !important;
+  background-color: rgb(var(--ds-accent-rgb) / .105) !important;
+}
+
+/* The project header card is a dialog-shaped popover rather than a menu. Its
+   stable project row makes it safe to style before the semantic part arrives. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="dialog"][data-slot="popover-content"][data-side="bottom"]:has(
+    [class~="group/project-hover-card-row"]
+  ) {
+  background:
+    radial-gradient(112% 88% at 8% 0%,
+      rgb(var(--ds-highlight-rgb) / .075),
+      transparent 57%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .73),
+      rgb(var(--ds-panel-rgb) / .57) 58%,
+      rgb(var(--ds-panel-rgb) / .45)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .14) !important;
+  border-radius: 18px !important;
+  box-shadow:
+    0 17px 38px rgb(var(--ds-accent-rgb) / .065),
+    0 5px 16px rgb(var(--ds-bg-rgb) / .085),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .72) !important;
+  -webkit-backdrop-filter: blur(17px) saturate(108%) brightness(106%) !important;
+  backdrop-filter: blur(17px) saturate(108%) brightness(106%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="dialog"][data-slot="popover-content"][data-side="bottom"]:has(
+    [class~="group/project-hover-card-row"]
+  ) button {
+  color: var(--ds-text) !important;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  transition: background-color 150ms ease, color 150ms ease !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="dialog"][data-slot="popover-content"][data-side="bottom"]:has(
+    [class~="group/project-hover-card-row"]
+  ) button:is(:hover, [data-highlighted]) {
+  background-color: rgb(var(--ds-accent-rgb) / .075) !important;
+  color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="dialog"][data-slot="popover-content"][data-side="bottom"]:has(
+    [class~="group/project-hover-card-row"]
+  ) :is([role="separator"], hr) {
+  border-color: rgb(var(--ds-accent-rgb) / .11) !important;
+  background-color: rgb(var(--ds-accent-rgb) / .11) !important;
+}
+
+/* Semantic variants retain a shared family while changing translucency and
+   depth according to purpose: mode is airiest, permissions is most legible,
+   and the add menu sits between them. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="mode-switch-menu"] {
+  background:
+    radial-gradient(120% 96% at 9% 0%,
+      rgb(var(--ds-highlight-rgb) / .08),
+      transparent 58%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .61),
+      rgb(var(--ds-panel-rgb) / .43)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .10) !important;
+  box-shadow:
+    0 13px 30px rgb(var(--ds-accent-rgb) / .045),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .60) !important;
+  -webkit-backdrop-filter: blur(15px) saturate(108%) brightness(108%) !important;
+  backdrop-filter: blur(15px) saturate(108%) brightness(108%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="permission-menu"] {
+  background:
+    radial-gradient(118% 92% at 10% 0%,
+      rgb(var(--ds-highlight-rgb) / .06),
+      transparent 58%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .75),
+      rgb(var(--ds-panel-rgb) / .57)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .14) !important;
+  box-shadow:
+    0 17px 38px rgb(var(--ds-accent-rgb) / .06),
+    0 5px 16px rgb(var(--ds-bg-rgb) / .08),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .72) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(105%) brightness(105%) !important;
+  backdrop-filter: blur(18px) saturate(105%) brightness(105%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-add-menu"] {
+  background:
+    radial-gradient(116% 90% at 8% 0%,
+      rgb(var(--ds-highlight-rgb) / .075),
+      transparent 57%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .62),
+      rgb(var(--ds-panel-rgb) / .44)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .115) !important;
+  box-shadow:
+    0 15px 34px rgb(var(--ds-accent-rgb) / .05),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .66) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(104%) brightness(106%) !important;
+  backdrop-filter: blur(13px) saturate(104%) brightness(106%) !important;
+}
+
+/* Composer suggestions are mounted before their semantic part is classified.
+   Paint the native suggestion chrome itself so Add opens warm on its first
+   frame, then let the semantic rule above retain the same material. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [class~="bg-surface-elevated-secondary"][class*="radius-suggestion-menu"],
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [class*="_ComposerTopMenuPanel_"]:not([data-composer-top-tray-embedded]) {
+  background:
+    radial-gradient(116% 90% at 8% 0%,
+      rgb(var(--ds-highlight-rgb) / .075),
+      transparent 57%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .62),
+      rgb(var(--ds-panel-rgb) / .44)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .115) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 15px 34px rgb(var(--ds-accent-rgb) / .05),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .66) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(104%) brightness(106%) !important;
+  backdrop-filter: blur(13px) saturate(104%) brightness(106%) !important;
+}
+
+/* Section headings such as Add and Plugins are independently sticky and use
+   the native elevated-surface token. Replace those cold strips with a nearly
+   weightless rose veil, leaving the list body visibly more transparent. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [class~="bg-surface-elevated-secondary"][class*="radius-suggestion-menu"]
+  [class~="sticky"][class~="bg-surface-elevated-secondary"],
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [class*="_ComposerTopMenuPanel_"]
+  [class~="sticky"][class~="bg-surface-elevated-secondary"],
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-add-menu"]
+  [class~="sticky"][class~="bg-surface-elevated-secondary"] {
+  background: linear-gradient(90deg,
+    rgb(var(--ds-panel-rgb) / .23),
+    rgb(var(--ds-panel-rgb) / .12) 62%,
+    rgb(var(--ds-highlight-rgb) / .025)) !important;
+  color: rgb(var(--ds-text-rgb) / .68) !important;
+  box-shadow: 0 1px rgb(var(--ds-accent-rgb) / .055) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Suggestion rows use a React-managed highlight class as well as native
+   pointer Hover. Make pointer Hover the only painted state, while retaining
+   a visible keyboard focus, so a stale managed row cannot remain gray beside
+   the row currently under the pointer. Avoid whole-row opacity transitions;
+   they amplify the apparent trail and repaint cost over a glass surface. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-add-menu"]
+  :is(button, [role="menuitem"], [role="option"]) {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-add-menu"]
+  :is(button, [role="menuitem"], [role="option"])[class~="bg-primary-ghost-hover"]:not(:hover):not(:focus-visible) {
+  background: transparent !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="composer-add-menu"]
+  :is(button, [role="menuitem"], [role="option"]):is(:hover, :focus-visible) {
+  background: rgb(var(--ds-accent-rgb) / .075) !important;
+  color: var(--ds-text) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="intelligence-menu"] {
+  background:
+    radial-gradient(116% 92% at 10% 0%,
+      rgb(var(--ds-highlight-rgb) / .07),
+      transparent 58%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .70),
+      rgb(var(--ds-panel-rgb) / .51)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .12) !important;
+  box-shadow:
+    0 15px 34px rgb(var(--ds-accent-rgb) / .05),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .68) !important;
+  -webkit-backdrop-filter: blur(17px) saturate(108%) brightness(106%) !important;
+  backdrop-filter: blur(17px) saturate(108%) brightness(106%) !important;
+}
+
+/* The combined model/reasoning control contains nested native paint layers.
+   Keep one soft rose Hover on the interactive row and remove the darker gray
+   fill from its internal ModelPicker labels. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  button:has([class*="_ModelPickerTrigger"]):is(:hover, [data-state="open"]),
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="intelligence-menu"]
+  :is(button, [role="menuitem"], [role="option"]):is(:hover, [data-highlighted], [aria-selected="true"]) {
+  background: rgb(var(--ds-accent-rgb) / .095) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .13) !important;
+  color: var(--ds-text) !important;
+  box-shadow: inset 0 1px rgb(var(--ds-panel-rgb) / .42) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  button:has([class*="_ModelPickerTrigger"]):is(:hover, [data-state="open"])
+  [class*="_ModelPickerTrigger"],
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="intelligence-menu"]
+  :is(button, [role="menuitem"], [role="option"]):is(:hover, [data-highlighted], [aria-selected="true"])
+  :is([class*="_ModelPickerTrigger"], [class*="_ComposerDropdownLabelValue"], [class*="_ViewToggleContent_"], [class*="bg-primary"], [class*="bg-secondary"]) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* The power picker paints a separate native gray content pill inside each of
+   its three controls. Clear all three content layers unconditionally, both on
+   the semantic part and on the direct first-frame surface. The outer menuitem
+   remains responsible for the single soft rose Hover/focus indication. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="intelligence-menu"]
+  :is(
+    [class*="_ViewToggleContent_"],
+    [class*="_FastModeToggleContent_"],
+    [class*="_ResetToDefaultContent_"]
+  ),
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][class*="_ModelPickerDropdownContent_"]
+  :is(
+    [class*="_ViewToggleContent_"],
+    [class*="_FastModeToggleContent_"],
+    [class*="_ResetToDefaultContent_"]
+  ) {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="menu"][class*="_ModelPickerDropdownContent_"]
+  :is([role="menuitem"], [role="menuitemcheckbox"]):is(
+    :hover, :focus-visible, [data-highlighted]
+  ) {
+  background: rgb(var(--ds-accent-rgb) / .075) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .11) !important;
+  color: var(--ds-text) !important;
+  box-shadow: inset 0 1px rgb(var(--ds-panel-rgb) / .36) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is([data-ds-part="mode-switch-menu"], [data-ds-part="permission-menu"], [data-ds-part="composer-add-menu"], [data-ds-part="intelligence-menu"])
+  :is([class~="text-secondary"], [class~="text-tertiary"]) {
+  color: rgb(var(--ds-text-rgb) / .66) !important;
+}
+
+/* Search needs the clearest glass in this family because it presents dense,
+   shortcut-heavy results. The input and selected row stay softly translucent
+   instead of falling back to the native lavender-gray fills. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is(
+    [data-ds-part="search-palette"],
+    [role="dialog"]:has(
+      input[placeholder*="搜索"],
+      input[placeholder*="Search" i],
+      [role="searchbox"][placeholder*="搜索"],
+      [role="searchbox"][placeholder*="Search" i]
+    )
+  ) {
+  background:
+    radial-gradient(118% 88% at 9% 0%,
+      rgb(var(--ds-highlight-rgb) / .065),
+      transparent 58%),
+    linear-gradient(148deg,
+      rgb(var(--ds-panel-rgb) / .81),
+      rgb(var(--ds-panel-rgb) / .68) 58%,
+      rgb(var(--ds-panel-rgb) / .57)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .15) !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 24px 58px rgb(var(--ds-bg-rgb) / .16),
+    0 6px 20px rgb(var(--ds-accent-rgb) / .07),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .76) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(106%) brightness(105%) !important;
+  backdrop-filter: blur(22px) saturate(106%) brightness(105%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is([data-ds-part="search-palette"], [role="dialog"]:has(input[placeholder*="搜索"], input[placeholder*="Search" i]))
+  :is(input, [role="searchbox"]) {
+  background-color: rgb(var(--ds-panel-rgb) / .22) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .09) !important;
+  color: var(--ds-text) !important;
+  caret-color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is([data-ds-part="search-palette"], [role="dialog"]:has(input[placeholder*="搜索"], input[placeholder*="Search" i]))
+  :is([role="option"], [role="menuitem"], [data-selected="true"], [aria-selected="true"]):is(
+    :hover, [data-highlighted], [data-selected="true"], [aria-selected="true"]
+  ) {
+  background: rgb(var(--ds-accent-rgb) / .075) !important;
+  color: var(--ds-text) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is([data-ds-part="search-palette"], [role="dialog"]:has(input[placeholder*="搜索"], input[placeholder*="Search" i]))
+  :is(kbd, [class*="shortcut" i]) {
+  background: rgb(var(--ds-panel-rgb) / .38) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .085) !important;
+  color: rgb(var(--ds-text-rgb) / .58) !important;
+}
+
+/* Inline message re-editing is lighter than a message bubble and noticeably
+   distinct from the composer. Native layout, spacing and hit targets remain
+   untouched; only the surface and button paint change. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="message-edit-surface"] {
+  background:
+    radial-gradient(125% 98% at 8% 0%,
+      rgb(var(--ds-highlight-rgb) / .065),
+      transparent 60%),
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .50),
+      rgb(var(--ds-panel-rgb) / .33)) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .105) !important;
+  border-radius: 22px !important;
+  color: var(--ds-text) !important;
+  box-shadow:
+    0 12px 30px rgb(var(--ds-accent-rgb) / .045),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .55) !important;
+  -webkit-backdrop-filter: blur(15px) saturate(106%) brightness(105%) !important;
+  backdrop-filter: blur(15px) saturate(106%) brightness(105%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="message-edit-surface"] :is(textarea, [contenteditable="true"], [role="textbox"]) {
+  background: transparent !important;
+  color: var(--ds-text) !important;
+  caret-color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="message-edit-cancel"] {
+  background: rgb(var(--ds-panel-rgb) / .50) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .12) !important;
+  color: rgb(var(--ds-text-rgb) / .80) !important;
+  box-shadow: inset 0 1px rgb(var(--ds-panel-rgb) / .58) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(105%) brightness(105%) !important;
+  backdrop-filter: blur(10px) saturate(105%) brightness(105%) !important;
+  transition: background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease, box-shadow 150ms ease !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="message-edit-cancel"]:hover {
+  background: rgb(var(--ds-accent-rgb) / .08) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .20) !important;
+  color: var(--ds-accent) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="message-edit-submit"] {
+  background: color-mix(in srgb, var(--ds-accent) 90%, var(--ds-panel) 10%) !important;
+  border: 1px solid rgb(var(--ds-accent-rgb) / .42) !important;
+  color: var(--ds-on-accent) !important;
+  box-shadow:
+    0 5px 14px rgb(var(--ds-accent-rgb) / .14),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .34) !important;
+  transition: background-color 150ms ease, border-color 150ms ease,
+    box-shadow 150ms ease !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-ds-part="message-edit-submit"]:hover {
+  background: color-mix(in srgb, var(--ds-accent) 84%, var(--ds-panel) 16%) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .52) !important;
+  box-shadow:
+    0 7px 18px rgb(var(--ds-accent-rgb) / .18),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .40) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  :is([data-ds-part="message-edit-cancel"], [data-ds-part="message-edit-submit"])
+  :is(svg, span) {
+  color: currentColor !important;
+}
+
 html[data-dream-skin="active"] [data-user-message-bubble="true"] {
   border: 1px solid rgb(var(--ds-accent-rgb) / .18) !important;
   background: rgb(var(--ds-panel-rgb) / .48) !important;
@@ -1829,7 +2307,13 @@ html[data-dream-skin="active"] [data-user-message-bubble="true"] {
    restrained glass language as its composer without affecting dialogs or the
    confirmed assistant-reading veil. */
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) {
   background:
     linear-gradient(145deg,
       rgb(var(--ds-panel-rgb) / .82) 0%,
@@ -1846,47 +2330,101 @@ html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] section[role="presentation"] > header,
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) section[role="presentation"] > header,
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] section[role="presentation"] > header::before {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) section[role="presentation"] > header::before {
   background: transparent !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] section[role="presentation"]::after {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) section[role="presentation"]::after {
   background: rgb(var(--ds-accent-rgb) / .16) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] section[role="presentation"] > header > button[aria-expanded] {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) section[role="presentation"] > header > button[aria-expanded] {
   color: rgb(var(--ds-text-rgb) / .72) !important;
   text-shadow: 0 1px rgb(var(--ds-panel-rgb) / .56);
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-icon-button"] {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) [data-slot="thread-summary-panel-icon-button"] {
   border-color: transparent !important;
   color: rgb(var(--ds-accent-rgb) / .78) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-icon-button"]:hover {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) [data-slot="thread-summary-panel-icon-button"]:hover {
   background: rgb(var(--ds-accent-rgb) / .10) !important;
   color: var(--ds-accent) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-item-button"] {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) [data-slot="thread-summary-panel-item-button"] {
   color: rgb(var(--ds-text-rgb) / .78) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] [data-slot="thread-summary-panel-item-button"]:hover::before {
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) [data-slot="thread-summary-panel-item-button"]:hover::before {
   background: rgb(var(--ds-accent-rgb) / .09) !important;
 }
 
 html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
-  [data-ds-part="thread-summary-panel"] :is(
+  :is(
+    [data-ds-part="thread-summary-panel"],
+    div[class~="bg-surface-elevated-secondary"][class~="rounded-3xl"]:has(
+      [data-slot="thread-summary-panel-item-group"],
+      [data-slot="thread-summary-panel-icon-button"]
+    )
+  ) :is(
     [data-slot="thread-summary-panel-icon-button"],
     [data-slot="thread-summary-panel-item-button"]
   ) svg {
@@ -1945,9 +2483,106 @@ html[data-dream-skin="active"]
   backdrop-filter: blur(10px) saturate(106%) !important;
 }
 
+/* Keep the writing-block action distinct from the copy icon: a light warm
+   glass pill with a restrained accent response, while preserving native size
+   and alignment. The aria selectors cover the insertion frame when exposed;
+   the renderer part is the locale-tolerant fallback. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-oai-writing-block-surface] :is(
+    [data-ds-part="writing-block-add-to-conversation"],
+    button[aria-label="添加到对话"],
+    button[aria-label="添加至对话"],
+    button[aria-label="Add to chat" i],
+    button[aria-label="Add to conversation" i]
+  ) {
+  border-color: rgb(var(--ds-accent-rgb) / .17) !important;
+  border-radius: 999px !important;
+  background:
+    linear-gradient(135deg,
+      rgb(var(--ds-panel-rgb) / .66),
+      rgb(var(--ds-panel-2-rgb) / .40)) !important;
+  color: rgb(var(--ds-text-rgb) / .78) !important;
+  box-shadow:
+    0 4px 12px rgb(var(--ds-bg-rgb) / .10),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .64) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(108%) brightness(103%) !important;
+  backdrop-filter: blur(10px) saturate(108%) brightness(103%) !important;
+  transition: background-color 160ms ease, border-color 160ms ease,
+    color 160ms ease, box-shadow 160ms ease !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-oai-writing-block-surface] :is(
+    [data-ds-part="writing-block-add-to-conversation"],
+    button[aria-label="添加到对话"],
+    button[aria-label="添加至对话"],
+    button[aria-label="Add to chat" i],
+    button[aria-label="Add to conversation" i]
+  ):hover {
+  border-color: rgb(var(--ds-accent-rgb) / .28) !important;
+  background: rgb(var(--ds-accent-rgb) / .11) !important;
+  color: var(--ds-accent) !important;
+  box-shadow:
+    0 5px 14px rgb(var(--ds-accent-rgb) / .10),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .72) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-oai-writing-block-surface] :is(
+    [data-ds-part="writing-block-add-to-conversation"],
+    button[aria-label="添加到对话"],
+    button[aria-label="添加至对话"],
+    button[aria-label="Add to chat" i],
+    button[aria-label="Add to conversation" i]
+  ):focus-visible {
+  outline: 2px solid rgb(var(--ds-accent-rgb) / .34) !important;
+  outline-offset: 2px !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [data-oai-writing-block-surface]
+  [data-ds-part="writing-block-add-to-conversation"] :is(svg, span) {
+  color: currentColor !important;
+}
+
 html[data-dream-skin="active"]
   [data-oai-writing-block-surface][data-markdown-copy="code-block"] [dir="auto"] {
   color: var(--ds-text) !important;
+}
+
+/* Compact native text hints otherwise flash as cool white before any runtime
+   annotation can arrive. Match their own stable structure so the first frame
+   is already a restrained Roseblade glass chip, while leaving rich sidebar
+   previews and project cards to their dedicated surfaces above. */
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="tooltip"][class~="w-fit"][class~="text-sm"][class~="bg-surface-elevated-secondary"]:not(:has(
+    [class*="line-clamp"],
+    [class~="group/project-hover-card-row"],
+    [data-thread-user-message-navigation-tooltip-preview="true"]
+  )) {
+  background:
+    radial-gradient(120% 100% at 12% 0%,
+      rgb(var(--ds-highlight-rgb) / .08),
+      transparent 58%),
+    linear-gradient(145deg,
+      rgb(var(--ds-panel-rgb) / .48),
+      rgb(var(--ds-panel-rgb) / .28)) !important;
+  border-color: rgb(var(--ds-accent-rgb) / .085) !important;
+  color: rgb(var(--ds-text-rgb) / .78) !important;
+  box-shadow:
+    0 6px 16px rgb(var(--ds-accent-rgb) / .035),
+    inset 0 1px rgb(var(--ds-panel-rgb) / .54) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(108%) brightness(108%) !important;
+  backdrop-filter: blur(12px) saturate(108%) brightness(108%) !important;
+}
+
+html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"]
+  [role="tooltip"][class~="w-fit"][class~="text-sm"][class~="bg-surface-elevated-secondary"]:not(:has(
+    [class*="line-clamp"],
+    [class~="group/project-hover-card-row"],
+    [data-thread-user-message-navigation-tooltip-preview="true"]
+  )) :is(.text-secondary, .text-tertiary, svg) {
+  color: rgb(var(--ds-text-rgb) / .64) !important;
 }
 
 /* Wide-screen assistant replies can cross from the pale blossom into the
@@ -1973,8 +2608,8 @@ html[data-dream-skin="active"]
   }
 
   /* Roseblade's high-detail artwork needs local contrast control, not another
-     white page veil. The message becomes only a containing block; a separate
-     feathered pseudo-layer softens and desaturates the artwork under the copy. */
+     white page veil. Work and Chat both map their completed assistant prose to
+     one semantic part, so the exact same feathered mist serves both modes. */
   html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"][data-dream-art-wide="true"]
     .thread-scroll-container
     [data-local-conversation-final-assistant="true"][data-ds-part="message"] {
@@ -1986,8 +2621,10 @@ html[data-dream-skin="active"]
 
   html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"][data-dream-art-wide="true"]
     .thread-scroll-container
-    [data-local-conversation-final-assistant="true"][data-ds-part="message"]
-    [data-markdown-text-style="assistant-message"] {
+    :is(
+      [data-ds-part="assistant-reading-prose"],
+      [data-markdown-text-style="assistant-message"]
+    ) {
     position: relative !important;
     isolation: isolate;
     text-shadow: 0 1px 1px rgb(var(--ds-panel-rgb) / .42);
@@ -1995,8 +2632,10 @@ html[data-dream-skin="active"]
 
   html[data-dream-skin="active"][data-dream-theme-id="preset-roseblade-reverie"][data-dream-art-wide="true"]
     .thread-scroll-container
-    [data-local-conversation-final-assistant="true"][data-ds-part="message"]
-    [data-markdown-text-style="assistant-message"]::before {
+    :is(
+      [data-ds-part="assistant-reading-prose"],
+      [data-markdown-text-style="assistant-message"]
+    )::before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -2021,6 +2660,8 @@ html[data-dream-skin="active"]
       radial-gradient(ellipse 20% 16% at 20% 84%, #000 0%, #000 30%, rgb(0 0 0 / .68) 50%, rgb(0 0 0 / .32) 68%, rgb(0 0 0 / .10) 84%, transparent 100%),
       radial-gradient(ellipse 24% 16% at 76% 84%, #000 0%, #000 28%, rgb(0 0 0 / .66) 48%, rgb(0 0 0 / .30) 68%, rgb(0 0 0 / .10) 84%, transparent 100%);
     mask-composite: add, add, add;
+    animation: none !important;
+    transition: none !important;
   }
 }
 

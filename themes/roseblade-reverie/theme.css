@@ -46,20 +46,20 @@
 }
 
 [data-ds-part="composer"] {
-  background-color: var(--ds-theme-color-panel);
+  background-color: rgba(247, 233, 232, 0.74);
   border-color: var(--ds-theme-color-line);
   border-width: 1px;
   border-style: solid;
   border-radius: 18px;
-  box-shadow: 0 12px 32px rgba(72, 34, 47, 0.2);
-  backdrop-filter: blur(18px) saturate(1.1) brightness(1.03);
+  box-shadow: 0 12px 32px rgba(72, 34, 47, 0.14);
+  backdrop-filter: blur(22px) saturate(1.08) brightness(1.04);
   transition-property: border-color, box-shadow;
   transition-duration: 180ms;
 }
 
 [data-ds-part="composer"]:focus-visible {
   border-color: var(--ds-theme-color-accent);
-  box-shadow: 0 0 0 2px rgba(247, 233, 232, 0.24), 0 12px 32px rgba(72, 34, 47, 0.22);
+  box-shadow: 0 0 0 2px rgba(247, 233, 232, 0.18), 0 12px 32px rgba(72, 34, 47, 0.16);
 }
 
 [data-ds-part="dialog"] {
